@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { AsyncStorageCacheOptions } from '../CacheContext';
 
-export default class AsyncStorageConnector {
+export default class AsyncStorageConnector<T> {
   options: AsyncStorageCacheOptions;
   asyncStorage: typeof AsyncStorage;
 
@@ -18,10 +18,6 @@ export default class AsyncStorageConnector {
     await this.asyncStorage.clear();
   }
 
-  /**
-   * TODO: Add generic type
-   * Can return object or array
-   */
   async load(key: string) {
     if (!this.isPersisted(key)) {
       throw new Error(`Key ${key} does not exist`);
@@ -33,18 +29,10 @@ export default class AsyncStorageConnector {
       throw new Error(`load did not return a string`);
     }
 
-    const parsedData = JSON.parse(data);
-
-    if (Array.isArray(parsedData)) return parsedData as any[];
-
-    return parsedData as any;
+    return JSON.parse(data) as T;
   }
 
-  /**
-   * TODO: Add generic type
-   * can handle object or array
-   */
-  async store(data: any | any[], key: string) {
+  async store(data: T, key: string) {
     await this.asyncStorage.setItem(key, JSON.stringify(data));
   }
 }

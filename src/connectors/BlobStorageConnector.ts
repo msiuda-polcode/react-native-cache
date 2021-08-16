@@ -8,7 +8,7 @@ export const DEFAULT_BLOB_STORAGE_OPTIONS: BlobStorageCacheOptions = {
   cacheDirPath: RNFetchBlob.fs.dirs.DocumentDir,
 };
 
-export default class BlobStorageConnector {
+export default class BlobStorageConnector<T> {
   options: BlobStorageCacheOptions;
 
   constructor(options: BlobStorageCacheOptions) {
@@ -31,9 +31,6 @@ export default class BlobStorageConnector {
     );
   }
 
-  /**
-   * TODO: Add generic type
-   */
   async load(key: string) {
     const path = this.getContentPath(key);
 
@@ -43,17 +40,10 @@ export default class BlobStorageConnector {
 
     const data = await this.readFile(path);
 
-    const parsedData = JSON.parse(data);
-
-    if (Array.isArray(parsedData)) return parsedData as any[];
-
-    return parsedData as any;
+    return JSON.parse(data) as T;
   }
 
-  /**
-   * TODO: Add generic type
-   */
-  async store(data: any | any[], key: string) {
+  async store(data: T, key: string) {
     await this.writeFile(this.getContentPath(key), JSON.stringify(data));
   }
 

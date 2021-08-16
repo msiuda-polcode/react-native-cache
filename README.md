@@ -5,13 +5,13 @@ Cache module for React Native
 ## Installation
 
 ```sh
-npm install react-native-cache
+npm install react-native-cache @react-native-community/async-storage rn-fetch-blob
 ```
 
 ## Usage
 
 ```js
-import Cache from "react-native-cache";
+import Cache from 'react-native-cache';
 
 // ...
 
