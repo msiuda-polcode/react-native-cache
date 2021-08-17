@@ -2,15 +2,23 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "react-native-cache": ["./src/index"]
+      "react-native-cache": [
+        "./src/index"
+      ],
+      "@react-native-async-storage/async-storage/jest/async-storage-mock": [
+        "src/@types/index"
+      ]
     },
+    "allowJs": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
     "importsNotUsedAsValues": "error",
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "lib": ["esnext"],
+    "lib": [
+      "esnext"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
@@ -22,6 +30,14 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "esnext"
-  }
+    "target": "esnext",
+    "typeRoots": [
+      "./src/@types",
+      "./node_modules/@types"
+    ],
+  },
+  "include": [
+    "src/**/*",
+    "./jest.setup.ts"
+  ]
 }

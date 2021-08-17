@@ -10,23 +10,15 @@ export default class AsyncStorageConnector<T> {
     this.asyncStorage = AsyncStorage;
   }
 
-  async isPersisted(key: string) {
-    return !!this.asyncStorage.getItem(key);
-  }
-
   async clearStorage() {
     await this.asyncStorage.clear();
   }
 
   async load(key: string) {
-    if (!this.isPersisted(key)) {
-      throw new Error(`Key ${key} does not exist`);
-    }
-
     const data = await this.asyncStorage.getItem(key);
 
     if (typeof data !== 'string') {
-      throw new Error(`load did not return a string`);
+      throw new Error(`Key ${key} does not exist`);
     }
 
     return JSON.parse(data) as T;

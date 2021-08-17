@@ -26,15 +26,15 @@ export default class BlobStorageConnector<T> {
   }
 
   async clearStorage() {
-    await RNFetchBlob.fs.unlink(
-      this.options.cacheDirPath ?? RNFetchBlob.fs.dirs.DocumentDir
-    );
+    await RNFetchBlob.fs.unlink(this.options.cacheDirPath!);
   }
 
   async load(key: string) {
     const path = this.getContentPath(key);
 
-    if (!this.isPersisted(path)) {
+    const isPersisted = await this.isPersisted(path);
+
+    if (!isPersisted) {
       throw new Error(`File ${path} does not exist`);
     }
 

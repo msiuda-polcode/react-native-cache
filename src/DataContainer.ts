@@ -39,8 +39,4 @@ export default class DataContainer<T> {
   async get<K extends keyof T>(key: K) {
     return this.caches[key].get();
   }
-
-  getCaches() {
-    return this.caches;
-  }
 }

@@ -9,6 +9,8 @@
 .vscode/
 jsconfig.json
 
+coverage
+
 # Xcode
 #
 build/
